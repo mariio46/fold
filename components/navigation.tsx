@@ -11,8 +11,8 @@ export default function Navigation() {
             </div>
             <div className='flex items-center gap-x-6'>
                 <NavLink href={'/'}>Home</NavLink>
+                <NavLink href={'/users'}>Users</NavLink>
                 <NavLink href={'/products'}>Products</NavLink>
-                <NavLink href={'/posts'}>Posts</NavLink>
             </div>
         </nav>
     );
