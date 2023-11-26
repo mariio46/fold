@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 import './globals.css';
+import { cn } from '@/lib/utils';
 
 const figtree = Figtree({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
     title: 'Fold',
-    description: 'Next CRUD',
+    description: 'NextJS 13 & ShadcnUI CRUD using prisma & local database',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang='en'>
-            <body className={figtree.className}>{children}</body>
+            <body className={cn('font-sans antialiased', figtree.className)}>{children}</body>
         </html>
     );
 }
