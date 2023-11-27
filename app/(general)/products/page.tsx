@@ -1,8 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { rupiahFormat } from '@/lib/helpers';
 import { PrismaClient } from '@prisma/client';
-import ProductModal from './_modal-create';
 import { Metadata } from 'next';
+import ProductModalCreate from './_modal-create-form';
 import ProductOption from './_product-option';
 
 export const metadata: Metadata = {
@@ -46,7 +47,7 @@ export default async function Products() {
                             <CardDescription>All products in your website.</CardDescription>
                         </div>
                         <div>
-                            <ProductModal brands={brands} />
+                            <ProductModalCreate brands={brands} />
                         </div>
                     </div>
                 </CardHeader>
@@ -66,10 +67,10 @@ export default async function Products() {
                                 <TableRow key={product.id}>
                                     <TableCell className='font-medium'>{i + 1}</TableCell>
                                     <TableCell>{product.name}</TableCell>
-                                    <TableCell>{product.price}</TableCell>
+                                    <TableCell>{rupiahFormat(product.price)}</TableCell>
                                     <TableCell>{product.brand.name}</TableCell>
                                     <TableCell className='text-end'>
-                                        <ProductOption product={product} />
+                                        <ProductOption brands={brands} product={product} />
                                     </TableCell>
                                 </TableRow>
                             ))}

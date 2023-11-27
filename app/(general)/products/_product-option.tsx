@@ -1,5 +1,6 @@
 'use client';
 
+import { DropdownAlertDialog } from '@/components/dropdown-alert-dialog';
 import { DropdownDialog } from '@/components/dropdown-dialog';
 import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
@@ -12,14 +13,16 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import useLoading from '@/hooks/useLoading';
-import { Products } from '@/types';
+import { Brands, Products } from '@/types';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import ProductUpdateForm from './_update-form';
 
-export default function ProductOption({ product }: { product: Products }) {
-    const [open, setOpen] = useState(false);
+export default function ProductOption({ brands, product }: { brands: Brands[]; product: Products }) {
+    const [openAlertDialog, setOpenAlertDialog] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
     const { loading, startLoading, stopLoading } = useLoading();
     const router = useRouter();
 
@@ -37,7 +40,7 @@ export default function ProductOption({ product }: { product: Products }) {
     };
 
     const handleOpen = () => {
-        setOpen(!open);
+        setOpenAlertDialog(!openAlertDialog);
     };
 
     return (
@@ -57,15 +60,23 @@ export default function ProductOption({ product }: { product: Products }) {
                             Details
                         </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                        <Link href={'#'}>
-                            <Icon className='mr-2' name={'IconPencil'} />
-                            Edit
-                        </Link>
-                    </DropdownMenuItem>
+                    <DropdownDialog
+                        open={openDialog}
+                        setOpen={setOpenDialog}
+                        trigger_text='Edit'
+                        icon='IconPencil'
+                        title={`Edit ${product.name}`}
+                        description='Change the field that you need to update.'>
+                        <ProductUpdateForm
+                            open={openDialog}
+                            setOpen={setOpenDialog}
+                            brands={brands}
+                            product={product}
+                        />
+                    </DropdownDialog>
                     <DropdownMenuSeparator />
 
-                    <DropdownDialog
+                    <DropdownAlertDialog
                         title='Are you absolutely sure?'
                         trigger_text='Delete'
                         description={`This action cannot be undone. This will permanently delete ${product.name} and remove the data from our

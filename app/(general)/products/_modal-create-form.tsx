@@ -19,7 +19,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { SyntheticEvent, useState } from 'react';
 
-export default function ProductModal({ brands }: { brands: Brands[] }) {
+export default function ProductModalCreate({ brands }: { brands: Brands[] }) {
     const [open, setOpen] = useState(false);
     const { loading, startLoading, stopLoading } = useLoading();
     const [name, setName] = useState('');
@@ -58,7 +58,7 @@ export default function ProductModal({ brands }: { brands: Brands[] }) {
                 New Product
             </Button>
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className='sm:max-w-2xl'>
+                <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Add new product</DialogTitle>
                         <DialogDescription>This action will add new product.</DialogDescription>
