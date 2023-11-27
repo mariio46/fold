@@ -33,6 +33,7 @@ export function DropdownDialog({
     description,
     cancel_text = 'Cancel',
     submit_text = 'Continue',
+    processing,
     action,
     icon,
 }: Props) {
@@ -51,7 +52,10 @@ export function DropdownDialog({
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>{cancel_text}</AlertDialogCancel>
-                    <AlertDialogAction onClick={action} className={buttonVariants({ variant: variants })}>
+                    <AlertDialogAction
+                        onClick={action}
+                        className={buttonVariants({ variant: variants })}
+                        disabled={processing}>
                         {submit_text}
                     </AlertDialogAction>
                 </AlertDialogFooter>

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { PrismaClient } from '@prisma/client';
-import ProductModal from './_modal';
+import ProductModal from './_modal-create';
 import { Metadata } from 'next';
 import ProductOption from './_product-option';
 

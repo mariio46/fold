@@ -11,6 +11,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import useLoading from '@/hooks/useLoading';
 import { Products } from '@/types';
 import axios from 'axios';
 import Link from 'next/link';
@@ -19,12 +20,20 @@ import { useState } from 'react';
 
 export default function ProductOption({ product }: { product: Products }) {
     const [open, setOpen] = useState(false);
+    const { loading, startLoading, stopLoading } = useLoading();
     const router = useRouter();
 
     const handleDelete = async (id: number) => {
-        await axios.delete(`/api/products/${id}`);
-        router.refresh();
-        handleOpen();
+        try {
+            startLoading();
+            await axios.delete(`/api/products/${id}`);
+            router.refresh();
+            handleOpen();
+        } catch (error: any) {
+            console.log(error.response);
+        } finally {
+            stopLoading();
+        }
     };
 
     const handleOpen = () => {
@@ -61,6 +70,7 @@ export default function ProductOption({ product }: { product: Products }) {
                         trigger_text='Delete'
                         description={`This action cannot be undone. This will permanently delete ${product.name} and remove the data from our
                         servers.`}
+                        processing={loading}
                         variants={'destructive'}
                         cancel_text='Cancel'
                         submit_text='Delete'
