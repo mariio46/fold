@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import NavLink from './nav-link';
+import { buttonVariants } from './ui/button';
 
 export default function Navigation() {
     return (
@@ -13,6 +14,14 @@ export default function Navigation() {
                 <NavLink href={'/'}>Home</NavLink>
                 <NavLink href={'/users'}>Users</NavLink>
                 <NavLink href={'/products'}>Products</NavLink>
+                <div className='flex items-center gap-x-2'>
+                    <Link href={'/login'} className={buttonVariants({ variant: 'outline' })}>
+                        Login
+                    </Link>
+                    <Link href={'/register'} className={buttonVariants({ variant: 'outline' })}>
+                        Register
+                    </Link>
+                </div>
             </div>
         </nav>
     );
