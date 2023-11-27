@@ -1,6 +1,7 @@
 'use client';
 
 import { DropdownDialog } from '@/components/dropdown-dialog';
+import { Icon } from '@/components/icon';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -11,7 +12,6 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Products } from '@/types';
-import { DotsHorizontalIcon, IdCardIcon, Pencil1Icon } from '@radix-ui/react-icons';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -36,7 +36,7 @@ export default function ProductOption({ product }: { product: Products }) {
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button className='h-7' variant='outline' size='icon'>
-                        <DotsHorizontalIcon className='h-3.5 w-3.5' />
+                        <Icon name={'IconDots'} />
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end' className='w-56'>
@@ -44,13 +44,13 @@ export default function ProductOption({ product }: { product: Products }) {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
                         <Link href={'#'}>
-                            <IdCardIcon className='mr-2' />
+                            <Icon className='mr-2' name={'IconFileSearch'} />
                             Details
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                         <Link href={'#'}>
-                            <Pencil1Icon className='mr-2' />
+                            <Icon className='mr-2' name={'IconPencil'} />
                             Edit
                         </Link>
                     </DropdownMenuItem>
@@ -64,6 +64,7 @@ export default function ProductOption({ product }: { product: Products }) {
                         variants={'destructive'}
                         cancel_text='Cancel'
                         submit_text='Delete'
+                        icon='IconTrash'
                         action={() => handleDelete(product.id)}
                     />
                 </DropdownMenuContent>

@@ -11,7 +11,8 @@ import {
 } from '@/components/ui/alert-dialog';
 import { buttonVariants } from './ui/button';
 import { DropdownMenuItem } from './ui/dropdown-menu';
-import { TrashIcon } from '@radix-ui/react-icons';
+import { Icon } from '@/components/icon';
+import * as icons from '@tabler/icons-react';
 
 interface Props {
     trigger_text: string;
@@ -22,6 +23,7 @@ interface Props {
     submit_text?: string;
     processing?: boolean;
     action: () => void;
+    icon: keyof typeof icons;
 }
 
 export function DropdownDialog({
@@ -32,12 +34,13 @@ export function DropdownDialog({
     cancel_text = 'Cancel',
     submit_text = 'Continue',
     action,
+    icon,
 }: Props) {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 <DropdownMenuItem onSelect={(event) => event.preventDefault()}>
-                    <TrashIcon className='mr-2' />
+                    <Icon name={icon} className='mr-2' />
                     {trigger_text}
                 </DropdownMenuItem>
             </AlertDialogTrigger>
