@@ -10,26 +10,12 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { DotsHorizontalIcon, IdCardIcon, Pencil1Icon, TrashIcon } from '@radix-ui/react-icons';
+import { Products } from '@/types';
+import { DotsHorizontalIcon, IdCardIcon, Pencil1Icon } from '@radix-ui/react-icons';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-
-type Brands = {
-    id: number;
-    name: string;
-    created_at: Date;
-    updated_at: Date;
-};
-
-type Products = {
-    id: number;
-    name: string;
-    price: number;
-    brand_id: number;
-    brand: Brands;
-};
 
 export default function ProductOption({ product }: { product: Products }) {
     const [open, setOpen] = useState(false);
@@ -40,9 +26,11 @@ export default function ProductOption({ product }: { product: Products }) {
         router.refresh();
         handleOpen();
     };
+
     const handleOpen = () => {
         setOpen(!open);
     };
+
     return (
         <>
             <DropdownMenu>

@@ -15,11 +15,7 @@ import {
 } from '@/components/ui/select';
 import { SyntheticEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
-
-type Brands = {
-    id: number;
-    name: string;
-};
+import { Brands } from '@/types';
 
 export default function ProductForm({ brands, handleClick }: { brands: Brands[]; handleClick: () => void }) {
     const [name, setName] = useState('');

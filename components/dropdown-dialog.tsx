@@ -17,7 +17,7 @@ interface Props {
     trigger_text: string;
     title?: string;
     variants?: any;
-    description: string | any;
+    description: string;
     cancel_text?: string;
     submit_text?: string;
     processing?: boolean;

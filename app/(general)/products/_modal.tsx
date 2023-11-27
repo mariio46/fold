@@ -4,11 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useState } from 'react';
 import ProductForm from './_form';
-
-type Brands = {
-    id: number;
-    name: string;
-};
+import { Brands } from '@/types';
 
 export default function ProductModal({ brands }: { brands: Brands[] }) {
     const [open, setOpen] = useState(false);
