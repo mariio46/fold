@@ -6,6 +6,8 @@ export type Brands = {
 export type Products = {
     id: number;
     name: string;
+    slug: string;
     price: number;
     brand_id: number;
+    brands: Brands;
 };

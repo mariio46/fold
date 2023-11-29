@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,39 +7,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model brands {
+  id         Int        @id @default(autoincrement())
+  name       String
+  slug       String     @unique
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  products   products[]
+}
+
+model products {
+  id         Int      @id @default(autoincrement())
+  name       String
+  slug       String   @unique
+  price      Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  brand_id   Int
+  brands     brands   @relation(fields: [brand_id], references: [id])
+}
+
+model users {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   name      String?
   username  String   @unique @db.VarChar(25)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  todos     Todos[]
-}
-
-model Todos {
-  id        Int     @id @default(autoincrement())
-  name      String
-  body      String  @db.LongText
-  completed Boolean @default(false)
-  user_id   Int
-  user      Users   @relation(fields: [user_id], references: [id])
-}
-
-model Brands {
-  id         Int        @id @default(autoincrement())
-  name       String
-  created_at DateTime   @default(now())
-  updated_at DateTime   @updatedAt
-  products   Products[]
-}
-
-model Products {
-  id         Int      @id @default(autoincrement())
-  name       String
-  price      Int
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  brand      Brands   @relation(fields: [brand_id], references: [id])
-  brand_id   Int
+  updatedAt DateTime
 }

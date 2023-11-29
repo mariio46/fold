@@ -12,7 +12,7 @@ export default function Navigation() {
             </div>
             <div className='flex items-center gap-x-6'>
                 <NavLink href={'/'}>Home</NavLink>
-                <NavLink href={'/users'}>Users</NavLink>
+                <NavLink href={'/brands'}>Brands</NavLink>
                 <NavLink href={'/products'}>Products</NavLink>
                 <div className='flex items-center gap-x-2'>
                     <Link href={'/login'} className={buttonVariants({ variant: 'outline' })}>

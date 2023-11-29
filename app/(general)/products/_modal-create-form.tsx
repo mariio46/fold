@@ -14,6 +14,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import useLoading from '@/hooks/useLoading';
+import { convertToSlug } from '@/lib/helpers';
 import { Brands } from '@/types';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -33,13 +34,16 @@ export default function ProductModalCreate({ brands }: { brands: Brands[] }) {
 
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
+        const slug = convertToSlug(name);
         try {
             startLoading();
             await axios.post('/api/products', {
                 name: name,
+                slug: slug,
                 price: Number(price),
                 brand_id: Number(brand),
             });
+            await axios.post('/api/revalidate?tag=products');
             setName('');
             setPrice('');
             setBrand('');

@@ -30,8 +30,9 @@ export default function ProductOption({ brands, product }: { brands: Brands[]; p
         try {
             startLoading();
             await axios.delete(`/api/products/${id}`);
+            await axios.post('/api/revalidate?tag=products');
             router.refresh();
-            handleOpen();
+            handleOpenAlertDialog();
         } catch (error: any) {
             console.log(error.response);
         } finally {
@@ -39,8 +40,12 @@ export default function ProductOption({ brands, product }: { brands: Brands[]; p
         }
     };
 
-    const handleOpen = () => {
+    const handleOpenAlertDialog = () => {
         setOpenAlertDialog(!openAlertDialog);
+    };
+
+    const handleOpenDialog = () => {
+        setOpenDialog(!openDialog);
     };
 
     return (
@@ -67,12 +72,7 @@ export default function ProductOption({ brands, product }: { brands: Brands[]; p
                         icon='IconPencil'
                         title={`Edit ${product.name}`}
                         description='Change the field that you need to update.'>
-                        <ProductUpdateForm
-                            open={openDialog}
-                            setOpen={setOpenDialog}
-                            brands={brands}
-                            product={product}
-                        />
+                        <ProductUpdateForm handleOpenDialog={handleOpenDialog} brands={brands} product={product} />
                     </DropdownDialog>
                     <DropdownMenuSeparator />
 

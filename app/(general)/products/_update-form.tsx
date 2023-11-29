@@ -13,6 +13,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import useLoading from '@/hooks/useLoading';
+import { convertToSlug } from '@/lib/helpers';
 import { Brands, Products } from '@/types';
 import { DialogClose } from '@radix-ui/react-dialog';
 import axios from 'axios';
@@ -22,11 +23,11 @@ import { SyntheticEvent, useState } from 'react';
 interface PropsType {
     brands: Brands[];
     product: Products;
-    open: boolean;
-    setOpen: (open: boolean) => void;
+    // open: boolean;
+    handleOpenDialog: () => void;
 }
 
-export default function ProductUpdateForm({ brands, product, open, setOpen }: PropsType) {
+export default function ProductUpdateForm({ brands, product, handleOpenDialog }: PropsType) {
     const { loading, startLoading, stopLoading } = useLoading();
     const [name, setName] = useState(product.name);
     const [price, setPrice] = useState(product.price);
@@ -35,15 +36,18 @@ export default function ProductUpdateForm({ brands, product, open, setOpen }: Pr
 
     const update = async (e: SyntheticEvent) => {
         e.preventDefault();
+        const slug = convertToSlug(name);
         try {
             startLoading();
             await axios.patch(`/api/products/${product.id}`, {
                 name: name,
+                slug: product.name !== name ? slug : product.slug,
                 price: Number(price),
                 brand_id: Number(brand),
             });
+            await axios.post('/api/revalidate?tag=products');
             router.refresh();
-            setOpen(false);
+            handleOpenDialog();
         } catch (error: any) {
             console.log(error.response);
         } finally {

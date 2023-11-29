@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client';
 import { Metadata } from 'next';
 import ProductModalCreate from './_modal-create-form';
 import ProductOption from './_product-option';
+import { Products } from '@/types';
 
 export const metadata: Metadata = {
     title: 'Products / Fold',
@@ -23,20 +24,16 @@ async function getBrands() {
 }
 
 async function getProducts() {
-    const data = await prisma.products.findMany({
-        select: {
-            id: true,
-            name: true,
-            price: true,
-            brand_id: true,
-            brand: true,
-        },
+    const res = await fetch(`${process.env.BASE_URL}/api/products`, {
+        cache: 'force-cache',
+        next: { tags: ['products'] },
     });
-    return data;
+    const json = res.json();
+    return json;
 }
 
 export default async function Products() {
-    const [products, brands] = await Promise.all([getProducts(), getBrands()]);
+    const [{ products }, brands] = await Promise.all([getProducts(), getBrands()]);
     return (
         <div className='mx-auto my-8 max-w-[1480px]'>
             <Card>
@@ -57,18 +54,20 @@ export default async function Products() {
                             <TableRow>
                                 <TableHead>#</TableHead>
                                 <TableHead>Name</TableHead>
+                                <TableHead>Slug</TableHead>
                                 <TableHead>Price</TableHead>
                                 <TableHead>Brand</TableHead>
                                 <TableHead />
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {products.map((product, i) => (
+                            {products.map((product: Products, i: number) => (
                                 <TableRow key={product.id}>
                                     <TableCell className='font-medium'>{i + 1}</TableCell>
                                     <TableCell>{product.name}</TableCell>
+                                    <TableCell>{product.slug}</TableCell>
                                     <TableCell>{rupiahFormat(product.price)}</TableCell>
-                                    <TableCell>{product.brand.name}</TableCell>
+                                    <TableCell>{product.brands.name}</TableCell>
                                     <TableCell className='text-end'>
                                         <ProductOption brands={brands} product={product} />
                                     </TableCell>
