@@ -8,7 +8,7 @@ import ProductOption from './_product-option';
 import { Products } from '@/types';
 
 export const metadata: Metadata = {
-    title: 'Products / Fold',
+    title: `Products / ${process.env.APP_NAME}`,
 };
 
 const prisma = new PrismaClient();

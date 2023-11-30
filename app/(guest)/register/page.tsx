@@ -1,8 +1,13 @@
 import PrimaryLink from '@/components/primary-link';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: `Register / ${process.env.APP_NAME}`,
+};
 
 export default function Register() {
     return (
@@ -61,18 +66,17 @@ export default function Register() {
                             required
                         />
                     </div>
-
-                    <div className='mt-4 flex items-center justify-between'>
-                        <PrimaryLink href={'/'}>back</PrimaryLink>
-                        <div>
-                            <PrimaryLink href={'/login'}>login?</PrimaryLink>
-                            <Button className='ml-4' type='submit'>
-                                Register
-                            </Button>
-                        </div>
-                    </div>
                 </form>
             </CardContent>
+            <CardFooter className='mt-4 justify-between'>
+                <PrimaryLink href={'/'}>back</PrimaryLink>
+                <div>
+                    <PrimaryLink href={'/login'}>login?</PrimaryLink>
+                    <Button className='ml-4' type='submit'>
+                        Register
+                    </Button>
+                </div>
+            </CardFooter>
         </Card>
     );
 }

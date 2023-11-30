@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 const figtree = Figtree({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Fold',
+    title: `${process.env.APP_NAME}`,
     description: 'NextJS 13 & ShadcnUI CRUD using prisma & local database',
 };
 
